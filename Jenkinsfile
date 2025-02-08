@@ -1,3 +1,4 @@
+// Created scripted jenkinsfile
 node {
   checkout scm
     stage('Build') {
