@@ -16,4 +16,16 @@ node {
             }
         }
     }
+    stage('Deploy') {
+        docker.image('python:3.9').inside('-u root') {
+            sh 'pip install pyinstaller'
+            sh 'pyinstaller --onefile sources/add2vals.py'
+
+            sleep(time: 1, unit: 'MINUTES')
+            echo 'Pipeline has finished successfully.'
+        }
+        if (currentBuild.result == 'SUCCESS') {
+            archiveArtifacts 'dist/add2vals'
+        }
+    }
 }
