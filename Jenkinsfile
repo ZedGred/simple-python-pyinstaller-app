@@ -16,6 +16,20 @@ node {
             }
         }
     }
+
+  stage('Manual Approval') {
+        def userInput = input(
+            id: 'userInput', 
+            message: 'Lanjutkan ke tahap Deploy?', 
+            parameters: [
+                [$class: 'BooleanParameterDefinition', name: 'Proceed', defaultValue: true]
+            ]
+        )
+        
+        if (!userInput) {
+            error('Pipeline dihentikan oleh pengguna.')
+        }
+    }
     stage('Deploy') {
         docker.image('python:3.9').inside('-u root') {
             sh 'pip install pyinstaller'
