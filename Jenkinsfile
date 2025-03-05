@@ -36,7 +36,7 @@ node {
             sh 'pyinstaller --onefile sources/add2vals.py'
 
             sleep(time: 1, unit: 'MINUTES')
-            echo 'Pipeline has finished successfully.'
+            echo 'Pipeline telah selesai dengan sukses.'
         }
         if (currentBuild.result == 'SUCCESS') {
             archiveArtifacts 'dist/add2vals'
